@@ -13,7 +13,7 @@ var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
 // Create an SVG wrapper, append an SVG group that will hold our chart, and shift the latter by left and top margins.
-var svg = d3.select(".chart")
+var svg = d3.select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
@@ -39,12 +39,14 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
          // Step 2: Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear()
-    .domain([d3.extent(stateData, d => d.poverty)])
+    .domain([8,d3.max(stateData, d => d.poverty)])
     .range([0, width]);
 
+
   var yLinearScale = d3.scaleLinear()
-  .domain([d3.extent(stateData, d => d.smoking)])
+    .domain([4, d3.max(stateData, d => d.healthcare)])
     .range([height, 0]); 
+
 
 
        // Step 3: Create axis functions
@@ -60,4 +62,34 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
 
     chartGroup.append("g")
       .call(leftAxis);
-});
+
+      
+    // Step 5: Create Circles
+    // ==============================
+    var circlesGroup = chartGroup.selectAll("circle")
+    .data(stateData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcare))
+    .attr("r", "15")
+    .attr("fill", "lightblue")
+    .attr("opacity", ".5");
+
+    // Create axes labels
+    chartGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left + 40)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .attr("class", "axisText")
+    .text("Number of Billboard 100 Hits");
+  
+    chartGroup.append("text")
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+    .attr("class", "axisText")
+    .text("Hair Metal Band Hair Length (inches)");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
