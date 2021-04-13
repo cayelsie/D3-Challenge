@@ -76,19 +76,36 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .attr("fill", "lightblue")
     .attr("opacity", ".5");
 
+    //Step 6: Create labels inside the circles
+    var labels = chartGroup.selectAll(null)
+    .data(stateData)
+    .enter()
+    .append("text");
+
+    labels
+    .attr("x", d=> xLinearScale(d.poverty))
+    .attr("y", d=> yLinearScale(d.healthcare))
+    .text(d => d.abbr)
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "10px")
+    .attr("text-anchor", "middle")
+    .attr("fill", "white");
+
+
+
     // Create axes labels
     chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left + 40)
-    .attr("x", 0 - (height / 2))
+    .attr("x", 0 - (height / 1.5))
     .attr("dy", "1em")
     .attr("class", "axisText")
-    .text("Number of Billboard 100 Hits");
+    .text("Lacks Healthcare (%)");
   
     chartGroup.append("text")
-    .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+    .attr("transform", `translate(${width / 2.5}, ${height + margin.top + 30})`)
     .attr("class", "axisText")
-    .text("Hair Metal Band Hair Length (inches)");
+    .text("In Poverty (%)");
     })
     .catch(function(error) {
       console.log(error);
