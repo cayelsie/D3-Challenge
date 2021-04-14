@@ -41,8 +41,6 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     var xLinearScale = d3.scaleLinear()
     .domain([d3.min(stateData, d => d.poverty) * 0.8,
     d3.max(stateData, d => d.poverty) * 1.1])
-    // .domain([8, 22])
-    // .domain([8,d3.max(stateData, d => d.poverty)])
     .range([0, width]);
 
 
@@ -92,7 +90,6 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .attr("font-size", "10px")
     .attr("text-anchor", "middle")
     .attr("fill", "white");
-
 
 
     //Step 7: Create axes labels
