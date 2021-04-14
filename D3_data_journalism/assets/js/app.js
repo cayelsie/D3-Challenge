@@ -1,5 +1,5 @@
 // @TODO: YOUR CODE HERE!
-var svgWidth = 960;
+var svgWidth = 800;
 var svgHeight = 500;
 
 var margin = {
@@ -39,7 +39,8 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
          // Step 2: Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear()
-    .domain([8,d3.max(stateData, d => d.poverty)])
+    .domain([8, 22])
+    // .domain([8,d3.max(stateData, d => d.poverty)])
     .range([0, width]);
 
 
@@ -72,19 +73,18 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", "15")
-    .attr("fill", "lightblue")
+    .attr("r", "12")
+    .attr("fill", "dodgerblue")
     .attr("opacity", ".5");
 
     //Step 6: Create labels inside the circles
+    //==========================================
     var labels = chartGroup.selectAll(null)
     .data(stateData)
     .enter()
-    .append("text");
-
-    labels
+    .append("text")
     .attr("x", d=> xLinearScale(d.poverty))
-    .attr("y", d=> yLinearScale(d.healthcare))
+    .attr("y", d=> yLinearScale(d.healthcare) + 3)
     .text(d => d.abbr)
     .attr("font-family", "sans-serif")
     .attr("font-size", "10px")
@@ -93,7 +93,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
 
 
 
-    // Create axes labels
+    //Step 7: Create axes labels
     chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left + 40)
