@@ -39,13 +39,15 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
          // Step 2: Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear()
-    .domain([8, 22])
+    .domain([d3.min(stateData, d => d.poverty) * 0.8,
+    d3.max(stateData, d => d.poverty) * 1.1])
+    // .domain([8, 22])
     // .domain([8,d3.max(stateData, d => d.poverty)])
     .range([0, width]);
 
 
   var yLinearScale = d3.scaleLinear()
-    .domain([4, d3.max(stateData, d => d.healthcare)])
+    .domain([d3.min(stateData, d => d.healthcare) *0.9, d3.max(stateData, d => d.healthcare)])
     .range([height, 0]); 
 
 
@@ -73,7 +75,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", "12")
+    .attr("r", "11")
     .attr("fill", "dodgerblue")
     .attr("opacity", ".5");
 
