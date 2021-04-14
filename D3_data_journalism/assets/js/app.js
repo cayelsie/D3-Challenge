@@ -102,11 +102,13 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .attr("x", 0 - (height / 1.5))
     .attr("dy", "1em")
     .attr("class", "axisText")
+    .attr("font-weight", "bold")
     .text("Lacks Healthcare (%)");
   
     chartGroup.append("text")
     .attr("transform", `translate(${width / 2.5}, ${height + margin.top + 30})`)
     .attr("class", "axisText")
+    .attr("font-weight", "bold")
     .text("In Poverty (%)");
     })
     .catch(function(error) {
