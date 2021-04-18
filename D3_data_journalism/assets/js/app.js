@@ -24,7 +24,7 @@ var chartGroup = svg.append("g")
 // Import Data
 d3.csv("assets/data/data.csv").then(function(stateData) {
 
-        // Step 1: Parse Data/Cast as numbers
+    // Parse Data/Cast as numbers
     // ==============================
     stateData.forEach(function(data) {
         data.poverty = +data.poverty;
@@ -36,7 +36,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         console.log(data.poverty);
       });
 
-         // Step 2: Create scale functions
+    //Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear()
     .domain([d3.min(stateData, d => d.poverty) * 0.8,
@@ -50,12 +50,12 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
 
 
 
-       // Step 3: Create axis functions
+    //Create axis variables
     // ==============================
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
-        // Step 4: Append Axes to the chart
+    //Append Axes to the chart
     // ==============================
     chartGroup.append("g")
       .attr("transform", `translate(0, ${height})`)
@@ -65,7 +65,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
       .call(leftAxis);
 
       
-    // Step 5: Create Circles
+    //Create Circles
     // ==============================
     var circlesGroup = chartGroup.selectAll("circle")
     .data(stateData)
@@ -77,7 +77,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .attr("fill", "dodgerblue")
     .attr("opacity", ".5");
 
-    //Step 6: Create labels inside the circles
+    //Create labels inside the circles
     //==========================================
     var labels = chartGroup.selectAll(null)
     .data(stateData)
@@ -92,7 +92,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .attr("fill", "white");
 
 
-    //Step 7: Create axes labels
+    //Create axes labels
     chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left + 40)

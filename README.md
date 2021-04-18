@@ -1,1 +1,3 @@
-# D3-Challenge
+This project uses D3 with javascript and html to visualize a scatter plot comparing the percentage of people who lack healthcare within a state versus the percentage of people whose income puts them into the poverty level. This data comes from the US Census Bureau in 2014 https://data.census.gov/cedsci/. The scatter plot markers include the abbreviation of each state within the marker for easy viewing. The index.html file needs to be viewed with a local server (python -m http.server). The data, javascript and css files are found in the "assets" folder.
+
+From the plot, a positive correlation appears to exist between the percentage of people within a state that have a poverty-level income and the percentage of people within that state that lack healthcare.
